@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulario de Encuesta</title>
+  <link rel="stylesheet" href="./styles/estilos-dist.css" />
+
+  <style>
+        #download-button {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            z-index: 100;
+        }
+    </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <header class="header">
+      <h1 id="title" class="text-center">Encuesta Sastifacción</h1>
+      <p id="description" class="description text-center">
+        Haznos saber tu opinion acerca de NEWS
+      </p>
+    </header>
+    <form id="survey-form">
+      <div class="form-group">
+        <label id="name-label" for="name">Nombre</label>
+        <input type="text" name="Nombre" id="name" class="form-control" placeholder="Ingrese su nombre" required />
+      </div>
+      <div class="form-group">
+        <label id="email-label" for="email">Email</label>
+        <input type="email" name="correo:" id="email" class="form-control" placeholder="Ingrese su Email" required />
+      </div>
+      <div class="form-group">
+        <label id="number-label" for="number">Edad<span class="clue">(opcional)</span></label>
+        <input type="number" name="Edad:" id="number" min="10" max="99" class="form-control" placeholder="Edad" />
+      </div>
+      <div class="form-group">
+        <p>¿Cual es el rol que te describe mas actualmente?</p>
+        <select id="dropdown" name="¿Cual es el rol que te describe mas actualmente?" class="form-control" required>
+          <option disabled selected value>Selecciona tu rol actual</option>
+          <option value="Estudiante">Estudiante</option>
+          <option value="Trabajo">Trabajo</option>
+          <option value="Escritor de noticias">Escritor de noticias</option>
+          <option value="otro">otro</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <p>News tiene buenas noticias?</p>
+        <label>
+          <input name="News tiene buenas noticias?" value="Definitivamente" type="radio" class="input-radio"
+            checked />Definitivamente</label>
+        <label>
+          <input name="News tiene buenas noticias?" value="Creo que sí" type="radio" class="input-radio" />Creo que sí</label>
+
+        <label><input name="News tiene buenas noticias?" value="No" type="radio" class="input-radio" />No</label>
+      </div>
+
+      <div class="form-group">
+        <p>
+          Cuál es la razón de elegir leer sus noticias con nosotros?
+        </p>
+        <select id="Cuál es la razón de elegir leer sus noticias con nosotros?" name="Cuál es la razón de elegir leer sus noticias con nosotros?" class="form-control" required>
+          <option disabled selected value>Seleciona una opción</option>
+          <option value="Informacion verdadera">Informacion verdadera</option>
+          <option value="Contenido">Contenido</option>
+          <option value="Gratis">Gratis</option>
+          <option value="openSource">No encontre otro sitio</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <p>
+          Que le gustaria que mejoraramos?
+          <span class="clue">(Seleccione todas las que usted crea)</span>
+        </p>
+
+        <label><input name="prefer" value="front-end-projects" type="checkbox" class="input-checkbox" />
+          Noticias de tecnología
+        </label>
+        <label>
+          <input name="prefer" value="back-end-projects" type="checkbox" class="input-checkbox" />Noticias de Salud</label>
+        <label><input name="prefer" value="data-visualization" type="checkbox" class="input-checkbox" />Manejo de
+          datos</label>
+        <label><input name="prefer" value="challenges" type="checkbox" class="input-checkbox" />Noticias internacionales</label>
+        <label><input name="prefer" value="open-source-community" type="checkbox" class="input-checkbox" />Noticias de entretenimiento</label>
+        <label><input name="prefer" value="gitter-help-rooms" type="checkbox" class="input-checkbox" />Mayor
+          ayuda</label>
+        <label><input name="prefiere" value="videos" type="checkbox" class="input-checkbox" />Mejorar los Videos de información</label>
+        <label><input name="prefiere" value="city-meetups" type="checkbox" class="input-checkbox" />Mas interacción con los internautas</label>
+        <label><input name="Deberían Mejorar en:" value="Mas información acerca de nosotros" type="checkbox" class="input-checkbox" />Mas información acerca de nosotros</label>
+        <label><input name="Deberían Mejorar en:" value="Foros" type="checkbox" class="input-checkbox" />Foros</label>
+      </div>
+
+      <div class="form-group">
+        <p>Comentarios o Sugerencias?</p>
+        <textarea id="Comentario:" class="input-textarea" name="Comentarios o Sugerencias"
+          placeholder="Ingrese su comentario aquí..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" id="submit" class="submit-button">
+          Enviar
+        </button>
+      </div>
+    </form>
+  </div>
+  <button id="download-button" class="submit-button">Descargar datos</button>
+
+    <script>
+        function downloadData() {
+          // Get form data
+          const formData = new FormData(document.getElementById('survey-form'));
+
+          // Convert form data to JSON
+          const jsonData = JSON.stringify(Object.fromEntries(formData));
+
+          // Create a Blob object with the JSON data
+          const blob = new Blob([jsonData], { type: 'application/json' });
+
+          // Create a download link and click it to download the file
+          const a = document.createElement('a');
+          a.href = window.URL.createObjectURL(blob);
+          a.download = 'form_data.txt';
+          a.click();
+        }
+
+        // Attach click event listener to the download button
+        document.getElementById('download-button').addEventListener('click', downloadData);
+    </script>
+</body>
+
+</html>
